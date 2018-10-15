@@ -1,0 +1,263 @@
+<html>
+<head>
+	<title>Spin</title>
+	<!--[if IE]><script type="text/javascript" src="http://explorercanvas.googlecode.com/svn/trunk/excanvas.js"></script><![endif]-->
+	<script src="jquery.min.js"></script>
+	<script language="javascript">
+		var colors = ["#B8D430", "#3AB745", "#029990", "#A5E8F0", "#3501CB",
+		   "#2E2C75", "#673A7E", "#F0A5C7", "#CC0071", "#F80120",
+		   "#F35B20", "#FB9A00", "#FFCC00", "#FEF200"];
+		var persons = ["Toto", "Karine", "Michelle", "Nadine", "David",
+				 "Foufoune", "Fabienne", "Gilbert", "Danielle",
+				 "Sabine", "Nelson", "Marie-Line", "Matthieu", "????"];
+		var pwds = ['UkI','ToE','Hur','Bhq','FLo','Qof','ORe','Dsa','kiO','Drq','Klp','uAi','ffD'];
+
+		var isUnknown = true;
+		var mySpins = [
+		[16000, 16150, 16240],
+		[15760, 15860, 15800],
+		[15420,15390,15460],
+		[15100, 15250, 15175],
+		[14950, 14750, 14800],
+		[14600, 14700, 14500],
+		[14250, 14350, 14150],
+		[14000, 14040, 13980],
+		[13550, 13750, 13650],
+		[13200, 13400, 13455],
+		[13128, 12925, 13100],
+		[17000, 16950, 17100],
+		[16800, 16750, 16650],
+		[16350, 16370, 16400, 16420, 16450, 16500, 16510]
+		];
+		
+		var myPics = [
+		[''],
+		[''],
+		[''],
+		[''],
+		[''],
+		[''],
+		[''],
+		[''],
+		[''],
+		[''],
+		[''],
+		[''],
+		[''],
+		['img/bean.jpg', 'img/bin.jpg', 'img/bush.jpg', 'img/dog.jpg', 'img/goat.jpg', 'img/horse.jpg']
+		];
+		
+		var imgsPersons = [];
+		var imgsUnknown = [];
+
+		var selectedIndex = 4;
+
+		var startAngle = 0;
+		var arc = Math.PI / 7;
+		var spinTimeout = null;
+
+		var spinArcStart = 10;
+		var spinTime = 0;
+		var noSpin = 0;
+		var noMaxSpin = 3 + Math.floor(Math.random()*3);
+		var spinTimeTotal = 0;
+		var prevImage = null; 
+
+		var ctx;
+
+		function loadImages() {
+			for (i = 0; i < 6; i++)
+			{
+				imgsUnknown[i] = new Image();
+				imgsUnknown[i].src = myPics[13][i];
+			}
+		}
+		
+		function drawUnknownImage() {
+			if (prevImage != null)
+				ctx.clearRect (249- prevImage.width / 2, 180 , prevImage.width + 1, prevImage.height);
+				
+			img = imgsUnknown[Math.floor(Math.random()*6)];			
+			ctx.drawImage(img, 250 - img.width / 2, 180, img.width, img.height);
+			prevImage = img;
+		}
+		
+		function draw() {
+			drawRouletteWheel();
+		}
+
+		function drawRouletteWheel() {
+			var canvas = document.getElementById("wheelcanvas");
+			if (canvas.getContext) {
+				var outsideRadius = 200;
+				var textRadius = 160;
+				var insideRadius = 125;
+
+				ctx = canvas.getContext("2d");
+				ctx.clearRect(0,0,500,500);
+
+
+				ctx.strokeStyle = "black";
+				ctx.lineWidth = 2;
+
+				ctx.font = 'bold 12px sans-serif';
+
+				for(var i = 0; i < 14; i++) {
+					var angle = startAngle + i * arc;
+					ctx.fillStyle = colors[i];
+
+					ctx.beginPath();
+					ctx.arc(250, 250, outsideRadius, angle, angle + arc, false);
+					ctx.arc(250, 250, insideRadius, angle + arc, angle, true);
+					ctx.stroke();
+					ctx.fill();
+
+					ctx.save();
+					ctx.shadowOffsetX = -1;
+					ctx.shadowOffsetY = -1;
+					ctx.shadowBlur    = 0;
+					ctx.shadowColor   = "rgb(220,220,220)";
+					ctx.fillStyle = "black";
+					ctx.translate(250 + Math.cos(angle + arc / 2) * textRadius, 250 + Math.sin(angle + arc / 2) * textRadius);
+					ctx.rotate(angle + arc / 2 + Math.PI / 2);
+					var text = persons[i];
+					ctx.fillText(text, -ctx.measureText(text).width / 2, 0);
+					ctx.restore();
+				} 
+
+				//Arrow
+				ctx.fillStyle = "black";
+				ctx.beginPath();
+				ctx.moveTo(250 - 4, 250 - (outsideRadius + 5));
+				ctx.lineTo(250 + 4, 250 - (outsideRadius + 5));
+				ctx.lineTo(250 + 4, 250 - (outsideRadius - 5));
+				ctx.lineTo(250 + 9, 250 - (outsideRadius - 5));
+				ctx.lineTo(250 + 0, 250 - (outsideRadius - 13));
+				ctx.lineTo(250 - 9, 250 - (outsideRadius - 5));
+				ctx.lineTo(250 - 4, 250 - (outsideRadius - 5));
+				ctx.lineTo(250 - 4, 250 - (outsideRadius + 5));
+				ctx.fill();
+			}
+		}
+
+		function spin() {
+		
+			sel = document.getElementById("slNames");
+			if (pwds[sel.selectedIndex] != $('#pwd').attr('value'))
+			{
+				alert('Mauvais mot de passe');
+				return;
+			}
+			
+			document.getElementById("spin").disabled = true;
+			spinAngleStart = 10;
+			// reset
+			spinTime = 0;
+			startAngle = 0;
+			draw();
+			
+			
+			if (noSpin < noMaxSpin)
+			{
+				spinTimeTotal = mySpins[13][Math.floor(Math.random()*7)];
+				noSpin++;
+			}
+			else
+			{
+				isUnknown = false;
+				spinTimeTotal = mySpins[sel.options[sel.selectedIndex].value][Math.floor(Math.random()*3)];
+			}
+	
+			rotateWheel();
+		}
+
+		function rotateWheel() {
+			spinTime += 30;
+			var degrees = startAngle * 180 / Math.PI + 90;
+			var arcd = arc * 180 / Math.PI;
+			var index = Math.floor((360 - degrees % 360) / arcd);
+
+			if(spinTime >= spinTimeTotal) {
+				stopRotateWheel();
+				return;
+			}
+			var spinAngle = spinAngleStart - easeOut(spinTime, 0, spinAngleStart, spinTimeTotal);
+			startAngle += (spinAngle * Math.PI / 180);
+			drawRouletteWheel();
+			spinTimeout = setTimeout('rotateWheel()', 30);
+		}
+
+		function stopRotateWheel() {
+			clearTimeout(spinTimeout);
+			var degrees = startAngle * 180 / Math.PI + 90;
+			var arcd = arc * 180 / Math.PI;
+			var index = Math.floor((360 - degrees % 360) / arcd);				
+			ctx.save();
+			ctx.font = 'bold 30px sans-serif';
+			//var text = persons[index]
+			//ctx.fillText(text, 250 - ctx.measureText(text).width / 2, 250 + 10);
+			if (isUnknown) {
+				drawUnknownImage();
+			}
+			else {
+				var text = persons[index]
+				ctx.fillText(text, 250 - ctx.measureText(text).width / 2, 250 + 10);
+			}
+						
+			ctx.restore();
+			document.getElementById("spin").disabled = false;
+		}
+
+		function easeOut(t, b, c, d) {
+			var ts = (t/=d)*t;
+			var tc = ts*t;
+			return b+c*(tc + -3*ts + 3*t);
+		}
+		
+		$(document).ready(function(){
+			loadImages();
+			draw();	
+
+		$('#slNames').change(function() {
+		  $("#slNames option:selected").each(function () {
+                //alert($(this).index() + " ");
+				drawUnknownImage();
+		  });
+		});	
+		
+		});
+		
+		
+		
+	</script>
+</head>
+<body>
+	<div class="demo-app">
+		<div style="padding-bottom: 5px; font-weight: bold;">
+			Fais tourner la roue pour savoir à qui tu vas offrir un cadeau le 25 décembre 2012.
+		</div>
+		<div style="width:600px;">
+			<span style="float: left;">Je suis: </span>
+			<select style="float: left;" id="slNames">
+				  <option value="12">Danielle</option>
+				  <option value="3">David</option>
+				  <option value="5">Fabienne</option>
+				  <option value="10">Foufoune</option>
+				  <option value="0">Gilbert</option>
+				  <option value="9">Karine</option>
+				  <option value="8">Marie Line</option>
+				  <option value="2">Matthieu</option>
+				  <option value="11">Michelle</option>
+				  <option value="1">Nadine</option>
+				  <option value="4">Nelson</option>
+				  <option value="7">Sabine</option>
+				  <option value="6">Toto</option>				  
+			</select>
+			<span style="padding-left: 10px;">Mot de passe: </span>
+			<input id="pwd" type="password" size="3">
+			<input id="spin" type="button" onclick="spin();" value="Lancer">
+			<canvas height="500" width="500" id="wheelcanvas"></canvas>		
+		</div>
+	</div>
+</body>
+</html>
