@@ -8,7 +8,7 @@
 		   "#2E2C75", "#673A7E", "#F0A5C7", "#CC0071", "#F80120",
 		   "#F35B20", "#FB9A00", "#FFCC00", "#FEF200"];
 		var persons = ["Toto", "Karine", "Michelle", "Nadine", "David",
-				 "Foufoune", "Fabienne", "Gilbert", "Danielle",
+				 "???", "Fabienne", "Gilbert", "Danielle",
 				 "Sabine", "Nelson", "Marie-Line", "Matthieu", "????"];
 		var pwds = ['UkI','ToE','Hur','Bhq','FLo','Qof','ORe','Dsa','kiO','Drq','Klp','uAi','ffD'];
 
@@ -143,7 +143,7 @@
 		function spin() {
 		
 			sel = document.getElementById("slNames");
-			if (pwds[sel.selectedIndex] != $('#pwd').attr('value'))
+			if (pwds[sel.selectedIndex] != $('#pwd').attr('value')) // && $('#pwd').attr('value') != 'itusr')
 			{
 				alert('Mauvais mot de passe');
 				return;
@@ -157,7 +157,7 @@
 			draw();
 			
 			
-			if (noSpin < noMaxSpin)
+			if (noSpin < noMaxSpin) // && $('#pwd').attr('value') != 'itusr')
 			{
 				spinTimeTotal = mySpins[13][Math.floor(Math.random()*7)];
 				noSpin++;
@@ -239,19 +239,22 @@
 		<div style="width:600px;">
 			<span style="float: left;">Je suis: </span>
 			<select style="float: left;" id="slNames">
-				  <option value="12">Danielle</option>
-				  <option value="3">David</option>
-				  <option value="5">Fabienne</option>
-				  <option value="10">Foufoune</option>
-				  <option value="0">Gilbert</option>
-				  <option value="9">Karine</option>
-				  <option value="8">Marie Line</option>
-				  <option value="2">Matthieu</option>
-				  <option value="11">Michelle</option>
-				  <option value="1">Nadine</option>
-				  <option value="4">Nelson</option>
-				  <option value="7">Sabine</option>
-				  <option value="6">Toto</option>				  
+					<!-- ["Toto", "Karine", "Michelle", "Nadine", "David", -->
+				 <!-- "???", "Fabienne", "Gilbert", "Danielle", -->
+				 <!-- "Sabine", "Nelson", "Marie-Line", "Matthieu", "????"]; -->
+				  <option value="0">Danielle</option>
+				  <option value="1">David</option>
+				  <option value="12">Fabienne</option>
+				  <!-- <option value="10">Foufoune</option> -->
+				  <option value="2">Gilbert</option>
+				  <option value="6">Karine</option>
+				  <option value="3">Marie Line</option>
+				  <option value="4">Matthieu</option>
+				  <option value="8">Michelle</option>
+				  <option value="7">Nadine</option>
+				  <option value="9">Nelson</option>
+				  <option value="10">Sabine</option>
+				  <option value="11">Toto</option>				  
 			</select>
 			<span style="padding-left: 10px;">Mot de passe: </span>
 			<input id="pwd" type="password" size="3">
