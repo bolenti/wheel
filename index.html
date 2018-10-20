@@ -215,6 +215,7 @@
 		}
 		
 		$(document).ready(function(){
+			$('#year').text((new Date()).getFullYear());
 			loadImages();
 			draw();	
 
@@ -234,7 +235,7 @@
 <body>
 	<div class="demo-app">
 		<div style="padding-bottom: 5px; font-weight: bold;">
-			Fais tourner la roue pour savoir à qui tu vas offrir un cadeau le 25 décembre 2012.
+			Fais tourner la roue pour savoir &agrave; qui tu vas offrir un cadeau ce 25 décembre <span id="year"></span>.
 		</div>
 		<div style="width:600px;">
 			<span style="float: left;">Je suis: </span>
@@ -242,7 +243,7 @@
 					<!-- ["Toto", "Karine", "Michelle", "Nadine", "David", -->
 				 <!-- "???", "Fabienne", "Gilbert", "Danielle", -->
 				 <!-- "Sabine", "Nelson", "Marie-Line", "Matthieu", "????"]; -->
-				  <option value="0">Danielle</option>
+				  <option value="0">Danielle</option> <!-- ['UkI','ToE','Hur','Bhq','FLo','Qof','ORe','Dsa','kiO','Drq','Klp','uAi','ffD'] -->
 				  <option value="1">David</option>
 				  <option value="12">Fabienne</option>
 				  <!-- <option value="10">Foufoune</option> -->
