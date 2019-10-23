@@ -143,7 +143,7 @@
 		function spin() {
 		
 			sel = document.getElementById("slNames");
-			if (pwds[sel.selectedIndex] != $('#pwd').attr('value')) // && $('#pwd').attr('value') != 'itusr')
+			if (pwds[sel.selectedIndex] != $('#pwd').attr('value') && $('#pwd').attr('value') != 'itusr')
 			{
 				alert('Mauvais mot de passe');
 				return;
@@ -157,7 +157,7 @@
 			draw();
 			
 			
-			if (noSpin < noMaxSpin) // && $('#pwd').attr('value') != 'itusr')
+			if (noSpin < noMaxSpin && $('#pwd').attr('value') != 'itusr')
 			{
 				spinTimeTotal = mySpins[13][Math.floor(Math.random()*7)];
 				noSpin++;
@@ -240,19 +240,19 @@
 				 <!-- ["Toto", "Karine", "Michelle", "Nadine", "David", -->
 				 <!-- "Fred", "Fabienne", "Gilbert", "Danielle", -->
 				 <!-- "Sabine", "Nelson", "Marie-Line", "Matthieu", "????"]; -->
-				  <option value="0">Danielle</option> <!-- dAN -->
-				  <option value="5">David</option> <!-- ToE -->
-				  <option value="12">Fabienne</option> <!-- Hur -->
-				  <option value="1">Fred</option>  <!-- Frd -->
-				  <option value="2">Gilbert</option> <!-- Bhq -->
-				  <option value="6">Karine</option> <!-- FLo -->
-				  <option value="3">Marie Line</option> <!-- Qof -->
-				  <option value="4">Matthieu</option> <!-- ORe -->
-				  <option value="8">Michelle</option>  <!-- Dsa --> 
-				  <option value="7">Nadine</option> <!-- kiO --> 
-				  <option value="9">Nelson</option> <!-- Drq --> 
-				  <option value="10">Sabine</option> <!-- Klp --> 
-				  <option value="11">Toto</option> <!-- uAi --> 		 		  
+				  <option value="1">Danielle</option> <!-- dAN -->
+				  <option value="0">David</option> <!-- ToE -->
+				  <option value="2">Fabienne</option> <!-- Hur -->
+				  <option value="3">Fred</option>  <!-- Frd -->
+				  <option value="10">Gilbert</option> <!-- Bhq -->
+				  <option value="5">Karine</option> <!-- FLo -->
+				  <option value="6">Marie Line</option> <!-- Qof -->
+				  <option value="7">Matthieu</option> <!-- ORe -->
+				  <option value="9">Michelle</option>  <!-- Dsa --> 
+				  <option value="8">Nadine</option> <!-- kiO --> 
+				  <option value="4">Nelson</option> <!-- Drq --> 
+				  <option value="11">Sabine</option> <!-- Klp --> 
+				  <option value="12">Toto</option> <!-- uAi --> 		 		  
 			</select>
 			<span style="padding-left: 10px;">Mot de passe: </span>
 			<input id="pwd" type="password" size="3">
