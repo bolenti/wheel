@@ -7,9 +7,13 @@
 		var colors = ["#B8D430", "#3AB745", "#029990", "#A5E8F0", "#3501CB",
 		   "#2E2C75", "#673A7E", "#F0A5C7", "#CC0071", "#F80120",
 		   "#F35B20", "#FB9A00", "#FFCC00", "#FEF200"];
+           /*
 		var persons = ["Toto", "Karine", "Michelle", "Nadine", "David",
 				 "Fred", "Fabienne", "Gilbert", "Danielle",
-				 "Sabine", "Nelson", "Marie-Line", "Matthieu", "????"];
+				 "Sabine", "Nelson", "Marie-Line", "Matthieu", "????"];         */  
+		var persons = ["Toto", "????", "Michelle", "Nadine", "David",
+				 "Fred", "Fabienne", "Gilbert", "Danielle",
+				 "Sabine", "Nelson", "Marie-Line", "????", "????"];
 		var pwds = ['dAN','ToE','Hur','Frd','Bhq','FLo','Qof','ORe','Dsa','kiO','Drq','Klp','uAi','ffD'];
 
 		var isUnknown = true;
@@ -237,22 +241,34 @@
 		<div style="width:600px;">
 			<span style="float: left;">Je suis: </span>
 			<select style="float: left;" id="slNames">
-				 <!-- ["Toto", "Karine", "Michelle", "Nadine", "David", -->
-				 <!-- "Fred", "Fabienne", "Gilbert", "Danielle", -->
-				 <!-- "Sabine", "Nelson", "Marie-Line", "Matthieu", "????"]; -->
-				  <option value="1">Danielle</option> <!-- dAN -->
-				  <option value="0">David</option> <!-- ToE -->
-				  <option value="2">Fabienne</option> <!-- Hur -->
-				  <option value="3">Fred</option>  <!-- Frd -->
-				  <option value="10">Gilbert</option> <!-- Bhq -->
-				  <option value="5">Karine</option> <!-- FLo -->
-				  <option value="6">Marie Line</option> <!-- Qof -->
-				  <option value="7">Matthieu</option> <!-- ORe -->
-				  <option value="9">Michelle</option>  <!-- Dsa --> 
-				  <option value="8">Nadine</option> <!-- kiO --> 
-				  <option value="4">Nelson</option> <!-- Drq --> 
+				 <!-- 0 - "Toto", 
+                      1 - "Karine"
+                      2 - "Michelle"
+                      3 - "Nadine", 
+                      4 - "David",
+                      5 - "Fred", 
+                      6 - "Fabienne", 
+                      7 "Gilbert", 
+                      8 "Danielle",
+				     9 "Sabine", 
+                     10 "Nelson", 
+                     11 "Marie-Line", 
+                     12 "Matthieu", 
+                     13 "????"]; -->
+                 
+				  <option value="9">Danielle</option> <!-- dAN -->
+				  <option value="3">David</option> <!-- ToE -->
+				  <option value="0">Fabienne</option> <!-- Hur -->
+				  <option value="2">Fred</option>  <!-- Frd -->
+				  <option value="5">Gilbert</option> <!-- Bhq -->
+				  <!-- <option value="5">Karine</option> --><!-- FLo -->
+				  <option value="8">Marie Line</option> <!-- Qof -->
+				  <!-- <option value="7">Matthieu</option> --> <!-- ORe -->
+				  <option value="10">Michelle</option>  <!-- Dsa --> 
+				  <option value="4">Nadine</option> <!-- kiO --> 
+				  <option value="6">Nelson</option> <!-- Drq --> 
 				  <option value="11">Sabine</option> <!-- Klp --> 
-				  <option value="12">Toto</option> <!-- uAi --> 		 		  
+				  <option value="7">Toto</option> <!-- uAi --> 		 		  
 			</select>
 			<span style="padding-left: 10px;">Mot de passe: </span>
 			<input id="pwd" type="password" size="3">
