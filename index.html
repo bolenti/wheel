@@ -4,66 +4,46 @@
 	<!--[if IE]><script type="text/javascript" src="http://explorercanvas.googlecode.com/svn/trunk/excanvas.js"></script><![endif]-->
 	<script src="jquery.min.js"></script>
 	<script language="javascript">
-		var colors = ["#B8D430", "#3AB745", "#029990", "#A5E8F0", "#3501CB",
-		   "#2E2C75", "#673A7E", "#F0A5C7", "#CC0071", "#F80120",
-		   "#F35B20", "#FB9A00", "#FFCC00", "#FEF200"];
-           /*
-		var persons = ["Toto", "Karine", "Michelle", "Nadine", "David",
-				 "Fred", "Fabienne", "Gilbert", "Danielle",
-				 "Sabine", "Nelson", "Marie-Line", "Matthieu", "????"];         */  
-		var persons = ["Toto", "????", "Michelle", "Nadine", "David",
-				 "Fred", "Fabienne", "Gilbert", "Danielle",
-				 "Sabine", "Nelson", "Marie-Line", "????", "????"];
-		var pwds = ['dAN','ToE','Hur','Frd','Bhq','FLo','Qof','ORe','Dsa','kiO','Drq','Klp','uAi','ffD'];
+		var persons = [
+            {id: 0, name: "Toto", pwd: 'Tot', spins:[16000, 16150, 16240], givesTo: 4, color: '#ff794c'}, 
+            {id: 1, name: "Ti David", pwd: 'Dav', spins: [15760, 15800, 15860], givesTo: 8, color: '#FDE92B'}, 
+            {id: 2, name: "Michele", pwd: 'Mic', spins: [15420, 15500, 15600], givesTo: 6, color: '#73dcff'}, 
+            {id: 3, name: "Nadine", pwd: 'Nad', spins: [19450, 19550, 19600], givesTo: 12, color: '#ff99e6'}, 
+            {id: 4, name: "Vieux David", pwd: 'Moi', spins: [19200, 19250, 19300], givesTo: 1, color: '#73ff96'}, // spins pas bon
+            {id: 5, name: "Fred", pwd: 'Frd', spins: [18900, 19000, 19050], givesTo: 0, color: '#73dcff'}, 
+            {id: 6, name: "Fabienne", pwd: 'Fab', spins: [18600, 18650, 18750], givesTo: 13, color: '#ffa64c'},
+            {id: 7, name: "Gilbert", pwd: 'Gil', spins: [18300, 18350, 18450], givesTo: 2, color: '#ff73b9'},
+            {id: 8, name: "Danielle", pwd: 'Dan', spins: [18050, 18100, 18200], givesTo: 3, color: '#bfbfff'},
+            {id: 9, name: "Sabine", pwd: 'Sab', spins: [17800, 17850, 17900], givesTo: 7, color: '#FFF200'},
+            {id: 10, name: "Nelson", pwd: 'Nel', spins: [17500, 17550, 17600], givesTo: 11, color: '#C9CCD2'},
+            {id: 11, name: "Marie-Line", pwd: 'MLi', spins: [17200, 17250, 17300], givesTo: 5, color: '#00b386'},
+            {id: 12, name: "Karine", pwd: 'Kar', spins: [16900, 16950, 17000], givesTo: 9, color: '#ffff99'},
+            {id: 13, name: "Matthieu", pwd: 'Matt', spins: [16600, 16750, 16800], givesTo: 10, color: '#4c79ff'},
+            {id: 14, name: "???", spins: [16300, 16350, 16400, 16450, 16500], color: '#ffffff'}            
+        ];
 
 		var isUnknown = true;
-		var mySpins = [
-		[16000, 16150, 16240],
-		[15760, 15860, 15800],
-		[15420,15390,15460],
-		[15100, 15250, 15175],
-		[14950, 14750, 14800],
-		[14600, 14700, 14500],
-		[14250, 14350, 14150],
-		[14000, 14040, 13980],
-		[13550, 13750, 13650],
-		[13200, 13400, 13455],
-		[13128, 12925, 13100],
-		[17000, 16950, 17100],
-		[16800, 16750, 16650],
-		[16350, 16370, 16400, 16420, 16450, 16500, 16510]
-		];
 		
-		var myPics = [
-		[''],
-		[''],
-		[''],
-		[''],
-		[''],
-		[''],
-		[''],
-		[''],
-		[''],
-		[''],
-		[''],
-		[''],
-		[''],
-		['img/bean.jpg', 'img/bin.jpg', 'img/bush.jpg', 'img/dog.jpg', 'img/goat.jpg', 'img/horse.jpg']
-		];
+		var pictures = [
+            'img/bean.jpg', 
+            'img/bin.jpg', 
+            'img/bush.jpg', 
+            'img/dog.jpg', 
+            'img/goat.jpg', 
+            'img/horse.jpg'
+        ];
 		
-		var imgsPersons = [];
 		var imgsUnknown = [];
 
-		var selectedIndex = 4;
 
 		var startAngle = 0;
-		var arc = Math.PI / 7;
+		var arc = Math.PI / 7.5;
 		var spinTimeout = null;
 
 		var spinArcStart = 10;
 		var spinTime = 0;
 		var noSpin = 0;
-		var noMaxSpin = 3 + Math.floor(Math.random()*3);
+		var noMaxSpin = 1 + Math.floor(Math.random()*3);
 		var spinTimeTotal = 0;
 		var prevImage = null; 
 
@@ -73,7 +53,7 @@
 			for (i = 0; i < 6; i++)
 			{
 				imgsUnknown[i] = new Image();
-				imgsUnknown[i].src = myPics[13][i];
+				imgsUnknown[i].src = pictures[i];
 			}
 		}
 		
@@ -105,10 +85,9 @@
 				ctx.lineWidth = 2;
 
 				ctx.font = 'bold 12px sans-serif';
-
-				for(var i = 0; i < 14; i++) {
+				for(var i = 0; i < persons.length; i++) {
 					var angle = startAngle + i * arc;
-					ctx.fillStyle = colors[i];
+					ctx.fillStyle = persons[i].color;
 
 					ctx.beginPath();
 					ctx.arc(250, 250, outsideRadius, angle, angle + arc, false);
@@ -124,13 +103,13 @@
 					ctx.fillStyle = "black";
 					ctx.translate(250 + Math.cos(angle + arc / 2) * textRadius, 250 + Math.sin(angle + arc / 2) * textRadius);
 					ctx.rotate(angle + arc / 2 + Math.PI / 2);
-					var text = persons[i];
+					var text = persons[i].name;
 					ctx.fillText(text, -ctx.measureText(text).width / 2, 0);
 					ctx.restore();
 				} 
 
 				//Arrow
-				ctx.fillStyle = "black";
+				ctx.fillStyle = "red";
 				ctx.beginPath();
 				ctx.moveTo(250 - 4, 250 - (outsideRadius + 5));
 				ctx.lineTo(250 + 4, 250 - (outsideRadius + 5));
@@ -146,8 +125,9 @@
 
 		function spin() {
 		
-			sel = document.getElementById("slNames");
-			if (pwds[sel.selectedIndex] != $('#pwd').attr('value') && $('#pwd').attr('value') != 'itusr')
+			person = persons[document.getElementById("slNames").selectedIndex];
+            console.log('%s gives to %s', person.name, persons[person.givesTo].name);
+			if (person.pwd != $('#pwd').attr('value') && $('#pwd').attr('value') != 'itusr')
 			{
 				alert('Mauvais mot de passe');
 				return;
@@ -155,6 +135,7 @@
 			
 			document.getElementById("spin").disabled = true;
 			spinAngleStart = 10;
+            
 			// reset
 			spinTime = 0;
 			startAngle = 0;
@@ -163,17 +144,31 @@
 			
 			if (noSpin < noMaxSpin && $('#pwd').attr('value') != 'itusr')
 			{
-				spinTimeTotal = mySpins[13][Math.floor(Math.random()*7)];
+				spinTimeTotal = persons[persons.length - 1].spins[Math.floor(Math.random() *  persons[persons.length - 1].spins.length)]; // spin to ???
 				noSpin++;
 			}
 			else
 			{
 				isUnknown = false;
-				spinTimeTotal = mySpins[sel.options[sel.selectedIndex].value][Math.floor(Math.random()*3)];
+				spinTimeTotal = persons[person.givesTo].spins[Math.floor(Math.random() * persons[person.givesTo].spins.length)]; // select real person
 			}
 	
 			rotateWheel();
 		}
+        
+		function spinTest() {
+		
+
+			document.getElementById("spin").disabled = true;
+			spinAngleStart = 10;
+			// reset
+			spinTime = 0;
+			startAngle = 0;
+			draw();
+            spinTimeTotal = document.getElementById('spinTime').value;
+	
+			rotateWheel();
+		}        
 
 		function rotateWheel() {
 			spinTime += 30;
@@ -204,7 +199,7 @@
 				drawUnknownImage();
 			}
 			else {
-				var text = persons[index]
+				var text = persons[index].name
 				ctx.fillText(text, 250 - ctx.measureText(text).width / 2, 250 + 10);
 			}
 						
@@ -240,39 +235,29 @@
 		</div>
 		<div style="width:600px;">
 			<span style="float: left;">Je suis: </span>
-			<select style="float: left;" id="slNames">
-				 <!-- 0 - "Toto", 
-                      1 - "Karine"
-                      2 - "Michelle"
-                      3 - "Nadine", 
-                      4 - "David",
-                      5 - "Fred", 
-                      6 - "Fabienne", 
-                      7 "Gilbert", 
-                      8 "Danielle",
-				     9 "Sabine", 
-                     10 "Nelson", 
-                     11 "Marie-Line", 
-                     12 "Matthieu", 
-                     13 "????"]; -->
-                 
-				  <option value="9">Danielle</option> <!-- dAN -->
-				  <option value="3">David</option> <!-- ToE -->
-				  <option value="0">Fabienne</option> <!-- Hur -->
-				  <option value="2">Fred</option>  <!-- Frd -->
-				  <option value="5">Gilbert</option> <!-- Bhq -->
-				  <option value="5">Karine</option> <!-- FLo -->
-				  <option value="8">Marie Line</option> <!-- Qof -->
-				  <option value="7">Matthieu</option> <!-- ORe -->
-				  <option value="10">Michelle</option>  <!-- Dsa --> 
-				  <option value="4">Nadine</option> <!-- kiO --> 
-				  <option value="6">Nelson</option> <!-- Drq --> 
-				  <option value="11">Sabine</option> <!-- Klp --> 
-				  <option value="7">Toto</option> <!-- uAi --> 		 		  
+			<select style="float: left;" id="slNames">                             
+				  <option>Toto</option> 
+				  <option>Ti David</option> 
+				  <option>Michelle</option> 
+				  <option>Nadine</option>  
+				  <option>Vieux David</option> 
+				  <option>Fred</option> 
+				  <option>Fabienne</option>
+				  <option>Gilbert</option> 
+				  <option>Danielle</option> 
+				  <option>Sabine</option>  
+				  <option>Nelson</option>  
+				  <option>Marie-Line</option> 
+				  <option>Karine</option> 		 		  
+				  <option>Matthieu</option> 		 		  
 			</select>
 			<span style="padding-left: 10px;">Mot de passe: </span>
-			<input id="pwd" type="password" size="3">
+			<input id="pwd" type="password" size="3"> 
 			<input id="spin" type="button" onclick="spin();" value="Lancer">
+            <div style="display: none;">
+                <input id="spinTime" type="text" size="3" value="16000">
+                <input id="spin" type="button" onclick="spinTest();" value="Spin Test">
+            </div>
 			<canvas height="500" width="500" id="wheelcanvas"></canvas>		
 		</div>
 	</div>
