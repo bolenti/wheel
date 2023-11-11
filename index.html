@@ -10,7 +10,7 @@
             {id: 2, name: "Michele", pwd: 'Mic', spins: [15420, 15500, 15600], givesTo: 6, color: '#73dcff'}, 
             {id: 3, name: "Nadine", pwd: 'Nad', spins: [19450, 19550, 19600], givesTo: 12, color: '#ff99e6'}, 
             {id: 4, name: "Vieux David", pwd: 'Moi', spins: [19200, 19250, 19300], givesTo: 1, color: '#73ff96'}, 
-            {id: 5, name: "Fred", pwd: 'Frd', spins: [18900, 19000, 19050], givesTo: 0, color: '#73dcff'}, 
+            {id: 5, name: "Costa", pwd: 'Frd', spins: [18900, 19000, 19050], givesTo: 0, color: '#73dcff'}, 
             {id: 6, name: "Fabienne", pwd: 'Fab', spins: [18600, 18650, 18750], givesTo: 13, color: '#ffa64c'},
             {id: 7, name: "Gilbert", pwd: 'Gil', spins: [18300, 18350, 18450], givesTo: 2, color: '#ff73b9'},
             {id: 8, name: "Danielle", pwd: 'Dan', spins: [18050, 18100, 18200], givesTo: 3, color: '#bfbfff'},
@@ -129,15 +129,15 @@
 
 		function spin() {
 		
-			person = persons[document.getElementById("slNames").selectedIndex];
-            console.log('%s gives to %s', person.name, persons[person.givesTo].name);
+			person = persons[document.getElementById("slNames").selectedIndex]; // récupérer le nom qui va spinner
+            console.log('%s gives to %s', person.name, persons[person.givesTo].name); // indication qui donne un cadeau à qui.
 			if (person.pwd != $('#pwd').attr('value') && $('#pwd').attr('value') != 'itusr')
 			{
 				alert('Mauvais mot de passe');
 				return;
 			}
 			
-			document.getElementById("spin").disabled = true;
+			document.getElementById("spin").disabled = true; // désactiver le bouton spin
 			spinAngleStart = 10;
             
 			// reset
@@ -146,6 +146,8 @@
 			draw();
 			
 			
+			// spinner plusieurs fois pour personne ou spinner une seule fois et donner la bonne réponse pour utilisateur
+			// avec mot de passe: itusr
 			if (noSpin < noMaxSpin && $('#pwd').attr('value') != 'itusr')
 			{
 				spinTimeTotal = persons[persons.length - 1].spins[Math.floor(Math.random() *  persons[persons.length - 1].spins.length)]; // spin to ???
