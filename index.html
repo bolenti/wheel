@@ -4,6 +4,7 @@
 	<!--[if IE]><script type="text/javascript" src="http://explorercanvas.googlecode.com/svn/trunk/excanvas.js"></script><![endif]-->
 	<script src="jquery.min.js"></script>
 	<script language="javascript">
+		console.log('Ici');
 		var persons = [
             {id: 0, name: "???", spins: [16000, 16150, 16240], color: '#ffffff'}        
             {id: 1, name: "Toto", pwd: 'Tot', spins: [15760, 15800, 15860], givesTo: 10, color: '#ff794c'}, 
@@ -21,7 +22,7 @@
             {id: 13, name: "Matthieu", pwd: 'Matt', spins: [16600, 16750, 16800], givesTo: 5, color: '#4c79ff'},
             {id: 14, name: "???", spins: [16300, 16350, 16400, 16450, 16500], color: '#ffffff'}            
         ];
-        
+        console.log('Là');
         for(i = 0; i < persons.length; i++) {
             console.log('%s, Fais tourner la roue pour savoir à qui tu vas offrir un cadeau ce 25 décembre %s. https://bolenti.github.io/wheel/ Mot de passe: %s', persons[i].name, (new Date()).getFullYear(), persons[i].pwd);
         }
