@@ -21,6 +21,7 @@
             {id: 13, name: "Matthieu", pwd: 'Matt', spins: [16600, 16750, 16800], givesTo: 5, color: '#D50000'},
             {id: 14, name: "???", spins: [16300, 16350, 16400, 16450, 16500], color: '#ffffff'}            
         ];
+
         for(i = 0; i < persons.length; i++) {
             console.log('%s, Fais tourner la roue pour savoir à qui tu vas offrir un cadeau ce 25 décembre %s. https://bolenti.github.io/wheel/ Mot de passe: %s', persons[i].name, (new Date()).getFullYear(), persons[i].pwd);
         }
